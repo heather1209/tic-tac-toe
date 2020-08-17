@@ -1,0 +1,277 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<title>Tic Tac Toe</title>
+<script>
+   function load_js()
+   {
+	var head= document.getElementsByTagName('head')[0];
+	var s= document.createElement('script');
+		if (document.getElementById('P1url').value != "")
+		{
+			var P1url = document.getElementById('P1url').value;
+		} else {
+			var P1url = 'https://i.imgur.com/EH3ggmM.jpg';
+		}
+		if (document.getElementById('P2url').value != "")
+		{
+			var P2url = document.getElementById('P2url').value;
+		} else {
+			var P2url = 'https://i.imgur.com/p5JAVD5.jpg';
+		}
+	var x = "var user = 1;\nvar P1 = \"<center><img border=0 width=50 height=50 src='" + P1url + "'/></center>\";\nvar P2 = \"<center><img border=0 width=50 height=50 src='" + P2url + "'/></center>\";\nvar clicks = 0;\nvar Result = new Array();\nResult[0] = new Array(0,0,0);\nResult[1] = new Array(0,0,0);\nResult[2] = new Array(0,0,0);\nvar complete = 0;\nfunction play(cell) {\nvar iframe = document.getElementById(\"theFrame\");\nif (complete===1) {\nreturn 0;}\nvar row = cell.id[0];\nvar col = cell.id[1];\nif (cell.innerHTML.search(\"" + P1url + "\") > -1 || cell.innerHTML.search(\"" + P2url + "\") > -1) {\nreturn 0;}\nclicks++;\nif (user === 1) {\ncell.innerHTML = P1;\nvar myEle = iframe.contentWindow.document.getElementById(\"modal\" + row + col);\nif (myEle){\nmyEle.classList.add(\"is-visible\")}\n;\nuser = 2;\nResult[row][col] = 1;\niframe.contentWindow.document.getElementById(\"turn\").innerHTML = \"<font color=White size=5><B>Player 2 to play</B></font>\";\n} else {\ncell.innerHTML = P2;\nvar myEle = iframe.contentWindow.document.getElementById(\"modal\" + row + col);\nif (myEle){\nmyEle.classList.add(\"is-visible\")\n};\nuser = 1;\nResult[row][col] = 2;\niframe.contentWindow.document.getElementById(\"turn\").innerHTML = \"<font color=White size=5><B>Player 1 to play</B></font>\";}\nvar finish = checkForWin();\nif (finish !== 0) {\niframe.contentWindow.document.getElementById(\"turn\").innerHTML = \"<font color=White size=5><B>Player \"+finish+\" won!</B></font>\";\niframe.contentWindow.document.getElementById(\"modalplayer\" + finish).classList.add(\"is-visible\");\ncomplete = 1;\n} else if (clicks===9) {\niframe.contentWindow.document.getElementById(\"turn\").innerHTML = \"<font color=White size=5><B>It's a tie!!!</B></font>\";\niframe.contentWindow.document.getElementById(\"tie\").classList.add(\"is-visible\");\ncomplete = 1;}}\nfunction checkForWin() {\nvar winner = 0;\nif (Result[0][0]!==0 && Result[0][0]===Result[0][1] && Result[0][1]===Result[0][2])\nwinner = Result[0][0];\nelse if (Result[2][0] !==0 && Result[2][0]===Result[2][1] && Result[2][1]===Result[2][2])\nwinner = Result[2][0];\nelse if (Result[1][0] !==0 && Result[1][0]===Result[1][1] && Result[1][1]===Result[1][2])\nwinner = Result[1][0];\nelse if (Result[0][2] !==0 && Result[0][2]===Result[1][1] && Result[1][1]===Result[2][0])\nwinner = Result[0][2];\nelse if (Result[0][0] !==0 && Result[0][0]===Result[1][0] && Result[1][0]===Result[2][0])\nwinner = Result[0][0];\nelse if (Result[0][1] !==0 && Result[0][1]===Result[1][1] && Result[1][1]===Result[2][1])\nwinner = Result[0][1];\nelse if (Result[0][2] !==0 && Result[0][2]===Result[1][2] && Result[1][2]===Result[2][2])\nwinner = Result[0][2];\nelse if (Result[0][0] !==0 && Result[0][0]===Result[1][1] && Result[1][1]===Result[2][2])\nwinner = Result[0][0];\nreturn winner;}"
+
+	s.type = 'text/javascript';
+	s.text = x;
+	document.head.appendChild(s);
+   }
+</script>
+    <script type="text/javascript">      
+      function makeDocument() {
+        var frame = document.getElementById("theFrame");
+        document.getElementById('theFrame').src = document.getElementById('theFrame').src
+		load_js();
+        var doc = document.implementation.createHTMLDocument("New Document");
+		if (document.getElementById('P1url').value != "")
+		{
+			var P1url = document.getElementById('P1url').value;
+		} else {
+			var P1url = 'https://i.imgur.com/EH3ggmM.jpg';
+		}
+		if (document.getElementById('P2url').value != "")
+		{
+			var P2url = document.getElementById('P2url').value;
+		} else {
+			var P2url = 'https://i.imgur.com/p5JAVD5.jpg';
+		}
+		if (document.getElementById('P1Winurl').value != "")
+		{
+			var P1Winurl = document.getElementById('P1Winurl').value;
+		} else {
+			var P1Winurl = 'https://i.imgur.com/epRRSPy.png';
+		}
+		if (document.getElementById('P2Winurl').value != "")
+		{
+			var P2Winurl = document.getElementById('P2Winurl').value;
+		} else {
+			var P2Winurl = 'https://i.imgur.com/UQ2DfpI.png';
+		}
+		if (document.getElementById('Tieurl').value != "")
+		{
+			var Tieurl = document.getElementById('Tieurl').value;
+		} else {
+			var Tieurl = 'https://i.imgur.com/xNXdQw5.jpg';
+		}
+        var p = '<div class="btn-group">\n<table border=0 cellspacing=10 cellpadding=10>\n<tr><div align=center><p id="turn" ><font color=White size=5><B>Player 1 to play</B></font></p></div></tr>\n<tr><td valign=top>\n<img align=left border=5 width=60 height=60 src="' + P1url + '"/>\n<p style="font-family:Times New Roman" align=left>\n<div align=center><font color=YELLOW><b>\nPlayer I	\n</font></b></div>\n</p>\n</td>\n<td>\n<table cellpadding=10 cellspacing=10 border=1 style="height:300px;width:300px">\n<tr>\n<td class="open-modal" data-open="modal1" onclick="parent.play(this)" id="00" style="height:30%;width:30%">\n<font color=white><b><div align=center>' + document.getElementById('box00').value + '</div></font></b>\n</td>\n<td class="open-modal" data-open="modal2" onclick="parent.play(this)" id="01" style="height:30%;width:30%">\n<font color=white><b><div align=center>' + document.getElementById('box01').value + '</div></font></b>\n</td>\n<td onclick="parent.play(this)" id="02" style="height:30%;width:30%">\n<font color=white><b><div align=center>' + document.getElementById('box02').value + '</div></font></b>\n</td>\n</tr>\n<tr>\n<td onclick="parent.play(this)" id="10" style="height:30%;width:30%">\n<font color=white><b><div align=center>' + document.getElementById('box10').value + '</div></font></b>\n</td>\n<td onclick="parent.play(this)" id="11" style="height:30%;width:30%">\n<font color=white><b><div align=center>' + document.getElementById('box11').value + '</div></font></b>\n</td>\n<td onclick="parent.play(this)" id="12" style="height:30%;width:30%">\n<font color=white><b><div align=center>' + document.getElementById('box12').value + '</div></font></b>\n</td>\n</tr>\n<tr>\n<td onclick="parent.play(this)" id="20" style="height:30%;width:30%">\n<font color=white><b><div align=center>' + document.getElementById('box20').value + '</div></font></b>\n</td>\n<td onclick="parent.play(this)" id="21" style="height:30%;width:30%">\n<font color=white><b><div align=center>' + document.getElementById('box21').value + '</div></font></b>\n</td>\n<td onclick="parent.play(this)" id="22" style="height:30%;width:30%">\n<font color=white><b><div align=center>' + document.getElementById('box22').value + '</div></font></b>\n</td>\n</tr>\n</table>\n</td>\n<td valign=top>\n<img align=right border=5  width=60 height=60 src="' + P2url + '"/>\n<p style="font-family:Times New Roman" align=right>\n<div align=center><font color=YELLOW><b>\nPlayer 2\n</font></b></div>\n</p>\n</td></tr>\n</table>\n</div>\n'
+		if (document.getElementById('box00url').value != '') {
+		p = p + '<div class="modal" id="modal00">\n<div class="modal-dialog">\n<div align=center>\n<p><img src="' + document.getElementById('box00url').value + '" id="popupimage" class="close-modal" aria-label="close modal" data-close="" onclick="javascript:document.getElementById(\'modal00\').classList.remove(isVisible);"/></p>\n</div>\n</section>\n</div>\n</div>\n'
+		}
+		if (document.getElementById('box01url').value != '') {
+		p = p + '<div class="modal" id="modal01">\n<div class="modal-dialog">\n<section class="modal-content">\n<div align=center>\n<p><img src ="' + document.getElementById('box01url').value + '" id="popupimage" class="close-modal" aria-label="close modal" data-close="" onclick="javascript:document.getElementById(\'modal01\').classList.remove(isVisible);"/></p>\n</div>\n</section>\n</div>\n</div>\n'
+		}
+		if (document.getElementById('box02url').value != '') {
+		p = p + '<div class="modal" id="modal02">\n<div class="modal-dialog">\n<section class="modal-content">\n<div align=center>\n<p><img src ="' + document.getElementById('box02url').value + '" id="popupimage" class="close-modal" aria-label="close modal" data-close="" onclick="javascript:document.getElementById(\'modal02\').classList.remove(isVisible);"/></p>\n</div>\n</section>\n</div>\n</div>\n'
+		}
+		if (document.getElementById('box10url').value != '') {
+		p = p + '<div class="modal" id="modal10">\n<div class="modal-dialog">\n<section class="modal-content">\n<div align=center>\n<p><img src ="' + document.getElementById('box10url').value + '" id="popupimage" class="close-modal" aria-label="close modal" data-close="" onclick="javascript:document.getElementById(\'modal10\').classList.remove(isVisible);"/></p>\n</div>\n</section>\n</div>\n</div>\n'
+		}
+		if (document.getElementById('box11url').value != '') {
+		p = p + '<div class="modal" id="modal11">\n<div class="modal-dialog">\n<section class="modal-content">\n<div align=center>\n<p><img src ="' + document.getElementById('box11url').value + '" id="popupimage" class="close-modal" aria-label="close modal" data-close="" onclick="javascript:document.getElementById(\'modal11\').classList.remove(isVisible);"/></p>\n</div>\n</section>\n</div>\n</div>\n'
+		}
+		if (document.getElementById('box12url').value != '') {
+		p = p + '<div class="modal" id="modal12">\n<div class="modal-dialog">\n<section class="modal-content">\n<div align=center>\n<p><img src ="' + document.getElementById('box12url').value + '" id="popupimage" class="close-modal" aria-label="close modal" data-close="" onclick="javascript:document.getElementById(\'modal12\').classList.remove(isVisible);"/></p>\n</div>\n</section>\n</div>\n</div>\n'
+		}
+		if (document.getElementById('box20url').value != '') {
+		p = p + '<div class="modal" id="modal20">\n<div class="modal-dialog">\n<section class="modal-content">\n<div align=center>\n<p><img src ="' + document.getElementById('box20url').value + '" id="popupimage" class="close-modal" aria-label="close modal" data-close="" onclick="javascript:document.getElementById(\'modal20\').classList.remove(isVisible);"/></p>\n</div>\n</section>\n</div>\n</div>\n'
+		}
+		if (document.getElementById('box21url').value != '') {
+		p = p + '<div class="modal" id="modal21">\n<div class="modal-dialog">\n<section class="modal-content">\n<div align=center>\n<p><img src ="' + document.getElementById('box21url').value + '" id="popupimage" class="close-modal" aria-label="close modal" data-close="" onclick="javascript:document.getElementById(\'modal21\').classList.remove(isVisible);"/></p>\n</div>\n</section>\n</div>\n</div>\n'
+		}
+		if (document.getElementById('box22url').value != '') {
+		p = p + '<div class="modal" id="modal22">\n<div class="modal-dialog">\n<section class="modal-content">\n<div align=center>\n<p><img src ="' + document.getElementById('box22url').value + '" id="popupimage" class="close-modal" aria-label="close modal" data-close="" onclick="javascript:document.getElementById(\'modal22\').classList.remove(isVisible);"/></p>\n</div>\n</section>\n</div>\n</div>\n'
+		}
+
+		p = p + '<div class="modal" id="modalplayer1">\n<div class="modal-dialog">\n<section class="modal-content">\n<div align=center>\n<p><img src ="' + P1Winurl + '" id="popupimage" class="close-modal" aria-label="close modal" data-close="" onclick="parent.makeDocument()"/></p>\n</div>\n</section>\n</div>\n</div>\n<div class="modal" id="modalplayer2">\n<div class="modal-dialog">\n<section class="modal-content">\n<div align=center>\n<p><img src ="' + P2Winurl + '" id="popupimage" class="close-modal" aria-label="close modal" data-close="" onclick="parent.makeDocument()"/></p>\n</div>\n</section>\n</div>\n</div>\n<div class="modal" id="tie">\n<div class="modal-dialog">\n<section class="modal-content">\n<div align=center>\n<p><img src ="' + Tieurl + '" id="popupimage" class="close-modal" aria-label="close modal" data-close="" onclick="parent.makeDocument()"/></p>\n</div>\n</section>\n</div>\n</div>';
+		
+		var css = ':root {\n--lightgray: #efefef;\n--blue: steelblue;\n--white: #fff;\n--black: rgba(0, 0, 0, 0.8);\n--bounceEasing: cubic-bezier(0.51, 0.92, 0.24, 1.15);\n}\n* {\npadding: 0;\nmargin: 0;\n}\na {\ncolor: inherit;\ntext-decoration: none;\n}\nbutton {\ncursor: pointer;\nbackground: transparent;\nborder: none;\noutline: none;\nfont-size: inherit;\n}\nbody {\ndisplay: -webkit-box;\ndisplay: flex;\n-webkit-box-align: center;\nalign-items: center;\n-webkit-box-pack: center;\njustify-content: center;\nheight: 100vh;\nfont: 16px/1.5 sans-serif;\n}\n.btn-group {\ntext-align: center;\n}\n.open-modal {\nfont-weight: bold;\ncolor: var(--white);\npadding: 0;\nmargin-bottom: 0;\nborder-radius: 0px;\n}\n.modal {\nposition: fixed;\ntop: 0;\nleft: 0;\nright: 0;\nbottom: 0;\ndisplay: -webkit-box;\ndisplay: flex;\n-webkit-box-align: center;\nalign-items: center;\n-webkit-box-pack: center;\njustify-content: center;\npadding: 1rem;\nbackground: var(--black);\ncursor: pointer;\nvisibility: hidden;\nopacity: 0;\n-webkit-transition: all 0.35s ease-in;\ntransition: all 0.35s ease-in;\n}\n.modal.is-visible {\nvisibility: visible;\nopacity: 1;\n}\n.modal-dialog {\nposition: relative;\nmax-width: 800px;\nmax-height: 80vh;\nborder-radius: 5px;\nbackground: var(--black);\noverflow: auto;\ncursor: default;\n}\n.modal-dialog > * {\npadding: 1rem;\n}\n.modal-header,\n.modal-footer {\nbackground: var(--black);\n}\n.modal-header {\ndisplay: -webkit-box;\ndisplay: flex;\n-webkit-box-align: center;\nalign-items: center;\n-webkit-box-pack: justify;\njustify-content: space-between;\n}\n.modal-header .close-modal {\nfont-size: 1.5rem;\n}\n.modal p + p {\nmargin-top: 1rem;\n}\n#popupimage{\nmax-height:300px;\nmax-width:300px;\nheight:auto;\nwidth:auto;\n}'
+		
+		var m = 'const openEls = document.querySelectorAll("[data-open]");\nconst closeEls = document.querySelectorAll("[data-close]");\nconst isVisible = "is-visible";\nfor (const el of openEls) {\nel.addEventListener("click", function() {\nconst modalId = this.dataset.open;\ndocument.getElementById(modalId).classList.add(isVisible);\n});\n}\nfor (const el of closeEls) {\nel.addEventListener("click", function() {\nthis.parentElement.parentElement.parentElement.classList.remove(isVisible);\n});\n}\ndocument.addEventListener("click", e => {\nif (e.target == document.querySelector(".modal.is-visible")) {\ndocument.querySelector(".modal.is-visible").classList.remove(isVisible);\n}\n});\ndocument.addEventListener("keyup", e => {\nif (e.key == "Escape" && document.querySelector(".modal.is-visible")) {\ndocument.querySelector(".modal.is-visible").classList.remove(isVisible);\n}\n});'
+		
+		var iframe = document.getElementById('theFrame');
+
+		var html = "<head><script>" + m + "<" + "/script><style>" + css + "</style></head><body>" + p + "</body>";
+		iframe.srcdoc = html;
+		document.getElementById('theFrame').src = document.getElementById('theFrame').src
+      }
+    </script>
+	 <script language="JavaScript" type="text/javascript">
+    function changeUrl(el,num) {
+    var im = document.getElementById(num);
+    im.src = el;
+    }
+    </script>
+<style>
+input { 
+    text-align: center; 
+}
+td,h1 {
+	color: white;
+	}
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.popupimage{
+max-height:200px;
+max-width:200px;
+height:auto;
+width:auto;
+}
+</style>
+</head>
+<body translate="no" bgcolor=BLACK> 
+<div align="center">
+<h1>Create your own Tic Tac Toe game!</h1>
+<table>
+<tr><td>
+<div align="right">Words:</div>
+</td><td>
+  <input type="text" id="box00" name="box00" size="10" value="cat">
+</td><td>
+  <input type="text" id="box01" name="box01" size="10" value="dog">
+</td><td>
+  <input type="text" id="box02" name="box02" size="10" value="mouse">
+</td></tr><tr><td>
+<div align="right">Image URLs:</div>
+</td><td>
+<div class="tooltip">
+  <input type="text" id="box00url" name="box00url" size="10" value="https://i.imgur.com/zVCsBy9.gif" onChange="changeUrl(this.value,00)">
+  <span class="tooltiptext"><img id="00" class="popupimage" src="https://i.imgur.com/zVCsBy9.gif"/></span>
+</div>
+</td><td>
+<div class="tooltip">
+  <input type="text" id="box01url" name="box01url" size="10" value="https://i.imgur.com/V7TTiV8.gif" onChange="changeUrl(this.value,01)">
+  <span class="tooltiptext"><img id="01" class="popupimage" src="https://i.imgur.com/V7TTiV8.gif"/></span>
+</div>
+</td><td>
+<div class="tooltip">
+  <input type="text" id="box02url" name="box02url" size="10" value="https://i.imgur.com/nIwLDml.gif" onChange="changeUrl(this.value,02)">
+  <span class="tooltiptext"><img id="02" class="popupimage" src="https://i.imgur.com/nIwLDml.gif"/></span>
+</div>
+</td></tr><tr><td><br></td></tr><tr><td>
+<div align="right">Words:</div>
+</td><td>
+  <input type="text" id="box10" name="box10" size="10" value="pig">
+</td><td>
+  <input type="text" id="box11" name="box11" size="10" value="rabbit">
+</td><td>
+  <input type="text" id="box12" name="box12" size="10" value="horse">
+</td></tr><tr><td>
+<div align="right">Image URLs:</div>
+</td><td>
+<div class="tooltip">
+  <input type="text" id="box10url" name="box10url" size="10" value="https://i.imgur.com/Hc4EqMd.gif" onChange="changeUrl(this.value,10)">
+  <span class="tooltiptext"><img id="10" class="popupimage" src="https://i.imgur.com/Hc4EqMd.gif"/></span>
+</div>
+</td><td>
+<div class="tooltip">
+  <input type="text" id="box11url" name="box11url" size="10" value="https://i.imgur.com/Q3Fa8MG.gif" onChange="changeUrl(this.value,11)">
+  <span class="tooltiptext"><img id="11" class="popupimage" src="https://i.imgur.com/Q3Fa8MG.gif"/></span>
+</div>
+</td><td>
+<div class="tooltip">
+  <input type="text" id="box12url" name="box12url" size="10" value="https://i.imgur.com/U1e5XPp.gif" onChange="changeUrl(this.value,12)">
+  <span class="tooltiptext"><img id="12" class="popupimage" src="https://i.imgur.com/U1e5XPp.gif"/></span>
+</div>
+</td></tr><tr><td><br></td></tr><tr><td>
+<div align="right">Words:</div>
+</td><td>
+  <input type="text" id="box20" name="box20" size="10" value="lion">
+</td><td>
+  <input type="text" id="box21" name="box21" size="10" value="tiger">
+</td><td>
+  <input type="text" id="box22" name="box22" size="10" value="jaguar">
+</td></tr><tr><td>
+<div align="right">Image URLs:</div>
+</td><td>
+<div class="tooltip">
+  <input type="text" id="box20url" name="box20url" size="10" value="https://i.imgur.com/znqGIGt.gif" onChange="changeUrl(this.value,20)">
+  <span class="tooltiptext"><img id="20" class="popupimage" src="https://i.imgur.com/znqGIGt.gif"/></span>
+</div>
+</td><td>
+<div class="tooltip">
+  <input type="text" id="box21url" name="box21url" size="10" value="https://i.imgur.com/d7cLK9A.gif" onChange="changeUrl(this.value,21)">
+  <span class="tooltiptext"><img id="21" class="popupimage" src="https://i.imgur.com/d7cLK9A.gif"/></span>
+</div>
+</td><td>
+<div class="tooltip">
+  <input type="text" id="box22url" name="box22url" size="10" value="https://i.imgur.com/6sd7EfK.gif" onChange="changeUrl(this.value,22)">
+  <span class="tooltiptext"><img id="22" class="popupimage" src="https://i.imgur.com/6sd7EfK.gif"/></span>
+</div>
+</td></tr><tr><td><br></td></tr><tr><td></td><td>
+<div align="right">Player 1 Image:</div>
+</td><td>
+<div class="tooltip">
+  <input type="text" id="P1url" name="P1url" size="10" value="https://i.imgur.com/EH3ggmM.jpg" onChange="changeUrl(this.value,'P1')">
+  <span class="tooltiptext"><img id="P1" class="popupimage" src="https://i.imgur.com/EH3ggmM.jpg"/></span>
+</div>
+</td></tr><tr><td></td><td>
+<div align="right">Player 2 Image:</div>
+</td><td>
+<div class="tooltip">
+  <input type="text" id="P2url" name="P2url" size="10" value="https://i.imgur.com/p5JAVD5.jpg" onChange="changeUrl(this.value,'P2')">
+  <span class="tooltiptext"><img id="P2" class="popupimage" src="https://i.imgur.com/p5JAVD5.jpg"/></span>
+</div>
+</td></tr><tr><td><br></td></tr><tr><td></td><td>
+<div align="right">Player 1 Wins:</div>
+</td><td>
+<div class="tooltip">
+  <input type="text" id="P1Winurl" name="P1Winurl" size="10" value="https://i.imgur.com/epRRSPy.png" onChange="changeUrl(this.value,'P1W')">
+  <span class="tooltiptext"><img id="P1W" class="popupimage" src="https://i.imgur.com/epRRSPy.png"/></span>
+</div>
+</td></tr><tr><td></td><td>
+<div align="right">Player 2 Wins:</div>
+</td><td>
+<div class="tooltip">
+  <input type="text" id="P2Winurl" name="P2Winurl" size="10" value="https://i.imgur.com/UQ2DfpI.png" onChange="changeUrl(this.value,'P2W')">
+  <span class="tooltiptext"><img id="P2W" class="popupimage" src="https://i.imgur.com/UQ2DfpI.png"/></span>
+</div>
+</td></tr><tr><td></td><td>
+<div align="right">Tie Game:</div>
+</td><td>
+<div class="tooltip">
+  <input type="text" id="Tieurl" name="Tieurl" size="10" value="https://i.imgur.com/xNXdQw5.jpg" onChange="changeUrl(this.value,'Tie')">
+  <span class="tooltiptext"><img id="Tie" class="popupimage" src="https://i.imgur.com/xNXdQw5.jpg"/></span>
+</div>
+</td>
+</table>
+<br>
+<table>
+<tr><td><div align="center">
+<button type="button" onclick="javascript:makeDocument()">Create/Reset Game</button><br><br>
+</div></td></tr>
+<tr><td>
+  <div align="center"><iframe id="theFrame" src="about:blank" height="500px" width="500px"/></div>
+</td></tr>
+</table>
+</div>
+</body></html>
